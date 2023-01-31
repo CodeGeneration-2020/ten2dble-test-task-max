@@ -13,8 +13,10 @@ class App extends Component<IAppProps> {
     averageScore: 0
   }
 
-  componentWillMount() {
-    this.setState({averageScore: (100 * this.props.data.userTotalScore / this.props.data.userTries) || 0})
+  componentDidUpdate(prevProps: IAppProps) {
+    if(prevProps.data !== this.props.data) {
+      this.setState({averageScore: (100 * this.props.data.userTotalScore / this.props.data.userTries) || 0})
+    }
   }
 
   render() {
@@ -22,7 +24,7 @@ class App extends Component<IAppProps> {
       <div className="main__wrap">
         <main className="container">
           <p>Your Average Score: {this.state.averageScore.toFixed(2)}</p>
-          <QuestionsContainer />
+          <QuestionsContainer  />
         </main>
       </div>
     );
